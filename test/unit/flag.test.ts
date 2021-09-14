@@ -7,18 +7,16 @@
 
 import { expect } from "chai";
 import * as Chance from "chance";
-import { Throttle } from "../../src";
+import { FlagManager } from "../../src";
 
-describe('Given {Flag} Class', (): void => {
+describe('Given {FlagManager} Class', (): void => {
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const chance: Chance.Chance = new Chance('flag-flag');
 
     it('should be able to construct', (): void => {
 
-        const instance: Throttle = Throttle.create(() => {
-            return;
-        }, 1000);
-        expect(instance).to.be.instanceOf(Throttle);
+        const instance: FlagManager = FlagManager.create();
+        expect(instance).to.be.instanceOf(FlagManager);
     });
 });
