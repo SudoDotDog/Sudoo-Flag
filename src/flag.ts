@@ -12,7 +12,7 @@ export class FlagManager {
         return new FlagManager();
     }
 
-    public static from(storage: FlagStorage): FlagManager {
+    public static fromStorage(storage: FlagStorage): FlagManager {
         return new FlagManager();
     }
 
