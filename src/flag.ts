@@ -7,22 +7,22 @@
 import { FlagConfig, FlagStorage } from "./declare";
 import { utilAttachFlag, utilRemoveFlag } from "./util";
 
-export class FlagManager {
+export class FlagManager<F extends string = string> {
 
-    public static fromTargets(targets: string[]): FlagManager {
+    public static fromTargets<F extends string = string>(targets: string[]): FlagManager<F> {
 
-        return new FlagManager(targets, []);
+        return new FlagManager<F>(targets, []);
     }
 
-    public static fromStorage(storage: FlagStorage): FlagManager {
+    public static fromStorage<F extends string = string>(storage: FlagStorage<F>): FlagManager<F> {
 
-        return new FlagManager(storage.targets, storage.flags);
+        return new FlagManager<F>(storage.targets, storage.flags);
     }
 
     private readonly _targets: string[];
-    private readonly _flags: Map<string, FlagConfig>;
+    private readonly _flags: Map<string, FlagConfig<F>>;
 
-    private constructor(targets: string[], flags: FlagConfig[]) {
+    private constructor(targets: string[], flags: Array<FlagConfig<F>>) {
 
         this._targets = targets;
         this._flags = new Map();
@@ -41,7 +41,7 @@ export class FlagManager {
 
     public getFlag(target: string): string[] {
 
-        const flagConfig: FlagConfig | undefined = this._flags.get(target);
+        const flagConfig: FlagConfig<F> | undefined = this._flags.get(target);
 
         if (!flagConfig) {
             return [];
@@ -49,28 +49,28 @@ export class FlagManager {
         return flagConfig.flags;
     }
 
-    public attachFlag(target: string, flag: string): this {
+    public attachFlag(target: string, flag: F): this {
 
-        const flagConfig: FlagConfig | undefined = this._flags.get(target);
+        const flagConfig: FlagConfig<F> | undefined = this._flags.get(target);
 
         if (!flagConfig) {
             return this;
         }
 
-        const newConfig: FlagConfig = utilAttachFlag(flagConfig, flag);
+        const newConfig: FlagConfig<F> = utilAttachFlag(flagConfig, flag);
         this._flags.set(target, newConfig);
         return this;
     }
 
-    public removeFlag(target: string, flag: string): this {
+    public removeFlag(target: string, flag: F): this {
 
-        const flagConfig: FlagConfig | undefined = this._flags.get(target);
+        const flagConfig: FlagConfig<F> | undefined = this._flags.get(target);
 
         if (!flagConfig) {
             return this;
         }
 
-        const newConfig: FlagConfig = utilRemoveFlag(flagConfig, flag);
+        const newConfig: FlagConfig<F> = utilRemoveFlag(flagConfig, flag);
         this._flags.set(target, newConfig);
         return this;
     }

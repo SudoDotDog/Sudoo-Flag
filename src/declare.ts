@@ -4,14 +4,14 @@
  * @description Declare
  */
 
-export type FlagConfig = {
+export type FlagConfig<F extends string> = {
 
     readonly target: string;
-    readonly flags: string[];
+    readonly flags: F[];
 };
 
-export type FlagStorage = {
+export type FlagStorage<F extends string> = {
 
-    readonly targets: string[];
-    readonly flags: FlagConfig[];
+    readonly targets: F[];
+    readonly flags: Array<FlagConfig<F>>;
 };

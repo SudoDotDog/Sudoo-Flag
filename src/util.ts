@@ -6,9 +6,9 @@
 
 import { FlagConfig } from "./declare";
 
-export const utilAttachFlag = (flagConfig: FlagConfig, newFlag: string): FlagConfig => {
+export const utilAttachFlag = <F extends string>(flagConfig: FlagConfig<F>, newFlag: F): FlagConfig<F> => {
 
-    const existFlags: string[] = flagConfig.flags;
+    const existFlags: F[] = flagConfig.flags;
 
     if (existFlags.includes(newFlag)) {
         return flagConfig;
@@ -20,9 +20,9 @@ export const utilAttachFlag = (flagConfig: FlagConfig, newFlag: string): FlagCon
     };
 };
 
-export const utilRemoveFlag = (flagConfig: FlagConfig, removeFlag: string): FlagConfig => {
+export const utilRemoveFlag = <F extends string>(flagConfig: FlagConfig<F>, removeFlag: F): FlagConfig<F> => {
 
-    const existFlags: string[] = flagConfig.flags;
+    const existFlags: F[] = flagConfig.flags;
 
     if (!existFlags.includes(removeFlag)) {
         return flagConfig;
