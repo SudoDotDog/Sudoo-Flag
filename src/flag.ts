@@ -9,6 +9,11 @@ import { utilAttachFlag, utilRemoveFlag } from "./util";
 
 export class FlagManager<F extends string = string> {
 
+    public static empty<F extends string = string>(): FlagManager<F> {
+
+        return new FlagManager<F>([], []);
+    }
+
     public static fromTargets<F extends string = string>(targets: string[]): FlagManager<F> {
 
         return new FlagManager<F>(targets, []);
