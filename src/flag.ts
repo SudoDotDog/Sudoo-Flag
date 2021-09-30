@@ -6,7 +6,11 @@
 
 export class FlagManager {
 
-    public static create(): FlagManager {
+    public static empty(): FlagManager {
+        return new FlagManager();
+    }
+
+    public static resolve(): FlagManager {
         return new FlagManager();
     }
 
