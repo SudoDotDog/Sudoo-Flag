@@ -24,10 +24,10 @@ export class FlagManager<F extends string = string> {
         return new FlagManager<F>(storage.targets, storage.flags);
     }
 
-    private readonly _targets: F[];
+    private readonly _targets: string[];
     private readonly _flags: Map<string, FlagConfig<F>>;
 
-    private constructor(targets: F[], flags: Array<FlagConfig<F>>) {
+    private constructor(targets: string[], flags: Array<FlagConfig<F>>) {
 
         this._targets = targets;
         this._flags = new Map();

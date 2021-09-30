@@ -12,6 +12,6 @@ export type FlagConfig<F extends string> = {
 
 export type FlagStorage<F extends string> = {
 
-    readonly targets: F[];
+    readonly targets: string[];
     readonly flags: Array<FlagConfig<F>>;
 };
