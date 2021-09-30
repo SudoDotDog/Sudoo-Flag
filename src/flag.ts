@@ -45,6 +45,18 @@ export class FlagManager {
         return flagConfig.flags;
     }
 
+    public setFlag(target: string, flag: string): this {
+
+        const flagConfig: FlagConfig | undefined = this._getFlagConfig(target);
+
+        if (!flagConfig) {
+            return this;
+        }
+
+        flagConfig.flags.push(flag);
+        return this;
+    }
+
     private _getFlagConfig(target: string): FlagConfig | undefined {
 
         return this.flags.find((flag: FlagConfig) => {
