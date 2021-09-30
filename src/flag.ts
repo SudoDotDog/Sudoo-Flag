@@ -45,7 +45,7 @@ export class FlagManager {
         return flagConfig.flags;
     }
 
-    public setFlag(target: string, flag: string): this {
+    public attachFlag(target: string, flag: string): this {
 
         const flagConfig: FlagConfig | undefined = this._getFlagConfig(target);
 
