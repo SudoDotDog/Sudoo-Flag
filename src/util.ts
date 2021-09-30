@@ -6,7 +6,7 @@
 
 import { FlagConfig } from "./declare";
 
-export const attachFlag = (flagConfig: FlagConfig, newFlag: string): FlagConfig => {
+export const utilAttachFlag = (flagConfig: FlagConfig, newFlag: string): FlagConfig => {
 
     const existFlags: string[] = flagConfig.flags;
 
@@ -20,7 +20,7 @@ export const attachFlag = (flagConfig: FlagConfig, newFlag: string): FlagConfig 
     };
 };
 
-export const removeFlag = (flagConfig: FlagConfig, removeFlag: string): FlagConfig => {
+export const utilRemoveFlag = (flagConfig: FlagConfig, removeFlag: string): FlagConfig => {
 
     const existFlags: string[] = flagConfig.flags;
 

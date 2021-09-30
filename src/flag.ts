@@ -4,8 +4,8 @@
  * @description Flag
  */
 
-import { FlagConfig } from ".";
-import { FlagStorage } from "./declare";
+import { FlagConfig, FlagStorage } from "./declare";
+import { utilAttachFlag, utilRemoveFlag } from "./util";
 
 export class FlagManager {
 
@@ -19,25 +19,29 @@ export class FlagManager {
         return new FlagManager(storage.targets, storage.flags);
     }
 
-    private readonly targets: string[];
-    private readonly flags: FlagConfig[];
+    private readonly _targets: string[];
+    private readonly _flags: Map<string, FlagConfig>;
 
     private constructor(targets: string[], flags: FlagConfig[]) {
 
-        this.targets = targets;
-        this.flags = flags;
+        this._targets = targets;
+        this._flags = new Map();
+
+        for (const flag of flags) {
+            this._flags.set(flag.target, flag);
+        }
     }
 
     public get targetLength(): number {
-        return this.targets.length;
+        return this._targets.length;
     }
     public get flagLength(): number {
-        return this.flags.length;
+        return this._flags.size;
     }
 
     public getFlag(target: string): string[] {
 
-        const flagConfig: FlagConfig | undefined = this._getFlagConfig(target);
+        const flagConfig: FlagConfig | undefined = this._flags.get(target);
 
         if (!flagConfig) {
             return [];
@@ -47,20 +51,27 @@ export class FlagManager {
 
     public attachFlag(target: string, flag: string): this {
 
-        const flagConfig: FlagConfig | undefined = this._getFlagConfig(target);
+        const flagConfig: FlagConfig | undefined = this._flags.get(target);
 
         if (!flagConfig) {
             return this;
         }
 
-        flagConfig.flags.push(flag);
+        const newConfig: FlagConfig = utilAttachFlag(flagConfig, flag);
+        this._flags.set(target, newConfig);
         return this;
     }
 
-    private _getFlagConfig(target: string): FlagConfig | undefined {
+    public removeFlag(target: string, flag: string): this {
 
-        return this.flags.find((flag: FlagConfig) => {
-            return flag.target === target;
-        });
+        const flagConfig: FlagConfig | undefined = this._flags.get(target);
+
+        if (!flagConfig) {
+            return this;
+        }
+
+        const newConfig: FlagConfig = utilRemoveFlag(flagConfig, flag);
+        this._flags.set(target, newConfig);
+        return this;
     }
 }
