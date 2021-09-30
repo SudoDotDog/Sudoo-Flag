@@ -4,4 +4,6 @@
  * @description index
  */
 
+export * from "./declare";
 export * from "./flag";
+

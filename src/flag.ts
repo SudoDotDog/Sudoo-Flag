@@ -4,13 +4,15 @@
  * @description Flag
  */
 
+import { FlagStorage } from "./declare";
+
 export class FlagManager {
 
     public static empty(): FlagManager {
         return new FlagManager();
     }
 
-    public static resolve(): FlagManager {
+    public static from(storage: FlagStorage): FlagManager {
         return new FlagManager();
     }
 
