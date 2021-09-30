@@ -14,7 +14,7 @@ export class FlagManager<F extends string = string> {
         return new FlagManager<F>([], []);
     }
 
-    public static fromTargets<F extends string = string>(targets: string[]): FlagManager<F> {
+    public static fromTargets<F extends string = string>(targets: F[]): FlagManager<F> {
 
         return new FlagManager<F>(targets, []);
     }
@@ -24,10 +24,10 @@ export class FlagManager<F extends string = string> {
         return new FlagManager<F>(storage.targets, storage.flags);
     }
 
-    private readonly _targets: string[];
+    private readonly _targets: F[];
     private readonly _flags: Map<string, FlagConfig<F>>;
 
-    private constructor(targets: string[], flags: Array<FlagConfig<F>>) {
+    private constructor(targets: F[], flags: Array<FlagConfig<F>>) {
 
         this._targets = targets;
         this._flags = new Map();
@@ -78,5 +78,13 @@ export class FlagManager<F extends string = string> {
         const newConfig: FlagConfig<F> = utilRemoveFlag(flagConfig, flag);
         this._flags.set(target, newConfig);
         return this;
+    }
+
+    public toStorage(): FlagStorage<F> {
+
+        return {
+            targets: this._targets,
+            flags: Array.from(this._flags.values()),
+        };
     }
 }
